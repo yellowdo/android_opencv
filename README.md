@@ -1,4 +1,5 @@
 
+
 # Android 에서 OpenCV 사용
 
 #### Download
@@ -52,10 +53,10 @@
 	android:id="@+id/javaCameraView" />
 ```
 
-- Android Manifest 수정
+ - Android Manifest 수정
+    
+- permission 추가  
 
-  * permission 추가
-  
 ```
 <uses-permission android:name="android.permission.CAMERA"/>
 <uses-feature android:name="android.hardware.camera" android:required="false"/>
@@ -64,7 +65,7 @@
 <uses-feature android:name="android.hardware.camera.front.autofocus"  android:required="false"/>
 ```
 
-  * screen size
+-  screen size
   
 ```
 <supports-screens android:resizeable="true"
@@ -74,7 +75,7 @@
 	android:anyDensity="true" />
 ```
   
-  * activity 속성에 추가
+- activity 속성에 추가
   
 ```
 android:screenOrientation="landscape"
@@ -147,7 +148,7 @@ JNIEXPORT void JNICALL Java_com_yellowdo_myapplication_MainActivity_opencv_1lib_
 
 - ndk-build 사용하여 공유 라이브러리(.so)를 빌드하기 위해서는 Android.mk 파일과 Application.mk 파일을 작성
 
-  * Android.mk (OPENCVROOT는 현재 사용자의 OpenCV-android-sdk 폴더의 위치로 변경해줘야함)
+- Android.mk (OPENCVROOT는 현재 사용자의 OpenCV-android-sdk 폴더의 위치로 변경해줘야함)
   
 ```
 LOCAL_PATH := $(call my-dir)
@@ -168,7 +169,7 @@ LOCAL_LDLIBS += -llog
 include $(BUILD_SHARED_LIBRARY)
 ```
 
-  * Application.mk (APP_PLATFORM App의 SDK 플랫폼 버전과 같아야함
+- Application.mk (APP_PLATFORM App의 SDK 플랫폼 버전과 같아야함
   
 ```
 APP_OPTIM := debug
@@ -194,7 +195,7 @@ externalNativeBuild {
 
 - MainAcitivity에 implements CameraBridgeViewBase.CvCameraViewListener2
 
-  * 상속된 CvCameraViewListener2 인터페이스 함수를 구현 (Implement 단축키 : Ctlr + I)
+- 상속된 CvCameraViewListener2 인터페이스 함수를 구현 (Implement 단축키 : Ctlr + I)
   
 ```
 private Mat matInput, matResult;
@@ -238,7 +239,7 @@ private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 
 - Activity LifeCycle에 맞게 OpenCvCameraView를 Init
 
-  * onCreate
+- onCreate
   
 ```
 private CameraBridgeViewBase mOpenCvCameraView;
@@ -267,7 +268,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-  * onPause (Override 단축키 : Ctrl + O)
+- onPause (Override 단축키 : Ctrl + O)
 
 ```
  @Override
@@ -278,7 +279,7 @@ protected void onPause() {
 }
 ```
 
-  * onResume
+- onResume
 
 ```
  @Override
@@ -292,7 +293,7 @@ protected void onResume() {
 }
 ```
 
-  * onDestroy
+- onDestroy
 
 ```
  @Override
