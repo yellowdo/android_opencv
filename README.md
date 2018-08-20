@@ -56,30 +56,30 @@
 
   * permission 추가
   
-  ```
+```
 <uses-permission android:name="android.permission.CAMERA"/>
 <uses-feature android:name="android.hardware.camera" android:required="false"/>
 <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
 <uses-feature android:name="android.hardware.camera.front.autofocus"  android:required="false"/>
-  ```
+```
 
   * screen size
   
-  ```
+```
 <supports-screens android:resizeable="true"
 	android:smallScreens="true"
 	android:normalScreens="true"
 	android:largeScreens="true"
 	android:anyDensity="true" />
-  ```
+```
   
   * activity 속성에 추가
   
-  ```
+```
 android:screenOrientation="landscape"
 android:configChanges="keyboardHidden|orientation"
-  ```
+```
 
 - 자바 코드에서 선언한 네이티브 메소드에 대응하는 C/C++ 함수가 선언되어 있는 헤더 파일을 jni 디렉토리에 자동으로 생성
 
@@ -149,7 +149,7 @@ JNIEXPORT void JNICALL Java_com_yellowdo_myapplication_MainActivity_opencv_1lib_
 
   * Android.mk (OPENCVROOT는 현재 사용자의 OpenCV-android-sdk 폴더의 위치로 변경해줘야함)
   
-  ```
+```
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
@@ -166,11 +166,11 @@ LOCAL_SRC_FILES := main.cpp
 LOCAL_LDLIBS += -llog
 
 include $(BUILD_SHARED_LIBRARY)
-  ```
+```
 
   * Application.mk (APP_PLATFORM App의 SDK 플랫폼 버전과 같아야함
   
-  ```
+```
 APP_OPTIM := debug
 APP_ABI := all
 APP_PLATFORM := android-28
@@ -180,7 +180,7 @@ APP_CPPFLAGS := -frtti -fexceptions
 NDK_TOOLCHAIN_VERSION := clang
 
 APP_BUILD_SCRIPT := Android.mk
-  ```
+```
 
 - app Module 내용에 externalNativeBuild 추가 (android 내용 안에)
 
@@ -196,7 +196,7 @@ externalNativeBuild {
 
   * 상속된 CvCameraViewListener2 인터페이스 함수를 구현 (Implement 단축키 : Ctlr + I)
   
-  ```
+```
 private Mat matInput, matResult;
 
 @Override
@@ -218,7 +218,7 @@ private Mat matInput, matResult;
         opencv_lib_run(matInput.getNativeObjAddr(), matResult.getNativeObjAddr());
         return matResult;
     }
-  ```
+```
 
 - BaseLoaderCallback 인터페이스 구현
 
@@ -240,7 +240,7 @@ private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 
   * onCreate
   
-  ```
+```
 private CameraBridgeViewBase mOpenCvCameraView;
 
 @Override
@@ -265,22 +265,22 @@ protected void onCreate(Bundle savedInstanceState) {
 	mOpenCvCameraView.setCameraIndex(0); // front-camera(1),  back-camera(0)
 	mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 }
-  ```
+```
 
   * onPause (Override 단축키 : Ctrl + O)
 
-  ```
+```
  @Override
 protected void onPause() {
 	super.onPause();
 	if (mOpenCvCameraView != null)
 		mOpenCvCameraView.disableView();
 }
-  ```
+```
 
   * onResume
 
-  ```
+```
  @Override
 protected void onResume() {
 	super.onResume();
@@ -290,18 +290,20 @@ protected void onResume() {
 		mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 	}
 }
-  ```
+```
 
   * onDestroy
 
-  ```
+```
  @Override
 protected void onDestroy() {
 	super.onDestroy();
 	if (mOpenCvCameraView != null)
 		mOpenCvCameraView.disableView();
 }
-  ```
+```
+
+
 
 - Permission 내용 추가 (카메라 권한이 요구됨)
 
